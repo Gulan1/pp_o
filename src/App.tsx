@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Calculator, ArrowRightLeft, Ruler } from 'lucide-react';
-
+ 
 interface Unit {
   name: string;
   symbol: string;
@@ -8,9 +8,10 @@ interface Unit {
 }
 
 const units: Unit[] = [
+  { name: '密耳', symbol: 'mil', toMeters: 0.0000254 },
+  { name: '毫米', symbol: 'mm', toMeters: 0.001 },
   { name: '米', symbol: 'm', toMeters: 1 },
   { name: '厘米', symbol: 'cm', toMeters: 0.01 },
-  { name: '毫米', symbol: 'mm', toMeters: 0.001 },
   { name: '英寸', symbol: 'in', toMeters: 0.0254 },
   { name: '英尺', symbol: 'ft', toMeters: 0.3048 },
   { name: '码', symbol: 'yd', toMeters: 0.9144 },
@@ -20,9 +21,9 @@ const units: Unit[] = [
 
 function App() {
   const [inputValue, setInputValue] = useState<string>('1');
-  const [inputUnit, setInputUnit] = useState<Unit>(units[0]); // 默认米
-  const [outputUnit, setOutputUnit] = useState<Unit>(units[1]); // 默认厘米
-  const [result, setResult] = useState<string>('100');
+  const [inputUnit, setInputUnit] = useState<Unit>(units.find(u => u.symbol === 'mil') || units[0]); // 默认密耳
+  const [outputUnit, setOutputUnit] = useState<Unit>(units.find(u => u.symbol === 'mm') || units[1]); // 默认毫米
+  const [result, setResult] = useState<string>('0.0254'); // 1 mil = 0.0254 mm
 
   // 转换函数
   const convertUnits = (value: number, from: Unit, to: Unit): number => {
